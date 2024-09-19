@@ -1,3 +1,12 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+class Todo(models.Model):
+    dt = models.DateTimeField(verbose_name="投稿日時", default=timezone.now)
+    deadline = models.DateTimeField(verbose_name="期日")  # 変更: DateField -> DateTimeField
+    content = models.CharField(verbose_name="やること", max_length=300)
+    done = models.BooleanField(verbose_name="やった", default=False)
+
+    def __str__(self):
+        return self.content
+
