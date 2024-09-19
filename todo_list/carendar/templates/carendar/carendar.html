@@ -34,6 +34,20 @@
         <a href="{% url 'search_movies' %}">公開日時を検索</a>
         <a href="{% url 'now_playing_movies' %}">公開中の映画一覧を見る</a>
         <a href="{% url 'upcoming_movies' %}">公開予定の映画一覧を見る</a>
+        <div class="registar">
+            {% if user.is_authenticated %}
+                <div>
+                    <p>やあ！{{ user.username }}君</p>
+                </div>
+                <div>
+                    <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %} 
+                        <button type="submit">ログアウト</button>
+                    </form>
+                </div>
+            {% else %}
+            {% endif %}
+        </div>
         {% if upcoming_todos %}
                 <div class="alert alert-info mt-3">
                     <strong>明日の予定:</strong>

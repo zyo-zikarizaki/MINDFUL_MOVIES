@@ -75,7 +75,7 @@ class CustomLoginview(LoginView):
 #ログアウト
 def logout_view(request):
     logout(request)
-    return redirect('todolist:index')
+    return redirect('carendar:index')
 
 #サインアップ
 def signup(request):
