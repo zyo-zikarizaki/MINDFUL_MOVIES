@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>近日公開の映画</title>
+</head>
+<body>
+    <h1>近日公開の映画一覧</h1>
+
+    {% if movies %}
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <strong>{{ movie.title }}</strong> <br>
+                    公開予定日: {{ movie.release_date }} <a href="{% url 'carendar:index' %}">日程を追加</a><br>
+                    概要: {{ movie.overview }} <br>
+                    {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }}のポスター">
+                    {% else %}
+                        <p>ポスター画像がありません。</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>近日公開の映画がありません。</p>
+    {% endif %}
+
+    <a href="{% url 'search_movies' %}">映画を検索する</a>
+    <a href="{% url 'now_playing_movies' %}">公開中の映画一覧</a>
+</body>
+</html>

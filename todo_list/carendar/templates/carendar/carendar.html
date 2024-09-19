@@ -30,6 +30,10 @@
 </head>
 <body>
     <header>
+        <h1> MINDFUL_MOVIES </h1>
+        <a href="{% url 'search_movies' %}">公開日時を検索</a>
+        <a href="{% url 'now_playing_movies' %}">公開中の映画一覧を見る</a>
+        <a href="{% url 'upcoming_movies' %}">公開予定の映画一覧を見る</a>
         {% if upcoming_todos %}
                 <div class="alert alert-info mt-3">
                     <strong>明日の予定:</strong>
