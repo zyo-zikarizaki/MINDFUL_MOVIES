@@ -21,7 +21,7 @@ class IndexView(View):
 
         context["todos"] = todos
         context["upcoming_todos"] = upcoming_todos
-        return render(request, "carendar/calendar.html", context)
+        return render(request, "carendar/carendar.html", context)
 
     def post(self, request, *args, **kwargs):
         form = TodoForm(request.POST)

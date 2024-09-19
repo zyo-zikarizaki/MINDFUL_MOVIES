@@ -1,0 +1,80 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Todoリスト</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/locales/ja.js"></script>
+    <script>
+        const events = [
+            {% for todo in todos %}
+            {
+                id: "{{ todo.id }}",
+                title: "{{ todo.content }}",
+                start: "{{ todo.deadline|date:'Y-m-d\\TH:i:s' }}",
+                backgroundColor: {% if not todo.done %}"deepskyblue"{% else %}"gray"{% endif %},
+                borderColor: "white"
+            },
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'carendar/js/carendar.js' %}"></script>
+</head>
+<body>
+    <header>
+        {% if upcoming_todos %}
+                <div class="alert alert-info mt-3">
+                    <strong>明日の予定:</strong>
+                    <ul>
+                        {% for todo in upcoming_todos %}
+                        <li>{{ todo.deadline }}: {{ todo.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        {% endif %}
+    </header>
+    <main class="mx-2">
+        <div class="row mx-0">
+            <div class="col-md-6">
+                <div id='calendar'></div>
+            </div>
+            <div class="col-md-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input name="deadline" type="text" readonly> <!-- datetime-localからtextに変更 -->
+                    <textarea class="form-control" name="content"></textarea>
+                    <input type="submit" value="送信">
+                </form>
+                
+                {% for todo in todos %}
+                <div id="todo_{{ todo.id }}" class="border">
+                    <div>見に行く日: {{ todo.deadline }}</div>
+                    <div>見るもの: {{ todo.content }}</div>
+                    <form class="text-right" action="{% url 'carendar:done' todo.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        {% if todo.done %}
+                        <input class="btn btn-primary" type="submit" value="見れた！">
+                        {% else %}
+                        <input class="btn btn-outline-primary" type="submit" value="見た？">
+                        {% endif %}
+                    </form>
+                    <form class="text-right" action="{% url 'carendar:delete' todo.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input class="btn btn-danger" type="submit" value="削除">
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
