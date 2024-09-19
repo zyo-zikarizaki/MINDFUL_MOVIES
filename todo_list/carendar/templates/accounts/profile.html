@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Todoリスト</title>
+</head>
+<body>
+<section>
+    <h2>プロフィール</h2>
+    <p>ユーザー名:{{user.username}}</p>
+    <p>メールアドレス:{{user.email}}</p>
+    <a href="{% url 'carendar:index' %}">カレンダーへ移動</a>
+</section>
+</body>
+</html>
