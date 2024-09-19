@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'movies/style.css' %}">
+    <title>映画検索</title>
+</head>
+<body>
+    <h1>映画の公開日時検索</h1>
+    <form method="GET" action="">
+        <input type="text" name="query" placeholder="映画タイトルを入力" value="{{ request.GET.query }}">
+        <button type="submit">検索</button>
+    </form>
+
+    {% if movies %}
+        <h2>検索結果:</h2>
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <strong>{{ movie.title }}</strong> <br>
+                    公開日: {{ movie.release_date }} <a href="{% url 'carendar:index' %}">日程を追加</a><br>
+                    概要: {{ movie.overview }} <br>
+                    {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }}のポスター">
+                    {% else %}
+                        <p>ポスター画像がありません。</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>検索結果がありません。</p>
+    {% endif %}
+</body>
+</html>
+
