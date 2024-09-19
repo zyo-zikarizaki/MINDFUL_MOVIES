@@ -4,9 +4,12 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Todo
-from .forms import TodoForm
+from .forms import TodoForm,SignupForm
 from django.utils.dateparse import parse_datetime
 from django.utils import timezone
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout
+
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -65,3 +68,27 @@ def update_event(request):
         return JsonResponse({'success': False}, status=400)
     return JsonResponse({'success': False}, status=405)
 
+#ログイン
+class CustomLoginview(LoginView):
+    template_name = 'registration/login.html'
+
+#ログアウト
+def logout_view(request):
+    logout(request)
+    return redirect('todolist:index')
+
+#サインアップ
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = SignupForm()
+    return render(request,'registration/signup.html',{'form':form})
+
+#プロフィール
+def profile(request):
+    user = request.user
+    return render(request, 'accounts/profile.html',{'user':user})
