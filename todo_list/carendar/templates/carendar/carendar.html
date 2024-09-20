@@ -49,6 +49,12 @@
                     </form>
                 </div>
             {% else %}
+            <div class="logout-button">
+                <form action="{% url 'login' %}" method="post">
+                <button type="submit" class="btn btn-primary">ログイン</button>
+                <form action="{% url 'signup' %}" method="post">
+                <button type="submit" class="btn btn-primary">サインアップ</button>
+            </div>
             {% endif %}
         </div>        
         {% if upcoming_todos %}
