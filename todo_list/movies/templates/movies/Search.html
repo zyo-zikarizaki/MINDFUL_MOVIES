@@ -18,18 +18,33 @@
         <h2>検索結果:</h2>
         <ul>
             {% for movie in movies %}
-                <li>
-                    <strong>{{ movie.title }}</strong> <br>
-                    公開日: {{ movie.release_date }} <a href="{% url 'carendar:index' %}">日程を追加</a><br>
-                    概要: {{ movie.overview }} <br>
-                    {% if movie.poster_path %}
-                        <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }}のポスター">
-                    {% else %}
-                        <p>ポスター画像がありません。</p>
-                    {% endif %}
+                <li class="movie-item">
+                    <div class="movie-header">
+                        <strong>{{ movie.title }}</strong>
+                    </div>
+                    <div class="movie-info">
+                        <span>公開日: {{ movie.release_date }}</span>
+                        <a href="{% url 'carendar:index' %}">日程を追加</a>
+                    </div>
+                    <div class="movie-item-content">
+                        {% if movie.poster_path %}
+                            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }}のポスター">
+                        {% else %}
+                            <p>ポスター画像がありません。</p>
+                        {% endif %}
+                        <div class="overview">
+                            {% if movie.overview %}
+                                概要: {{ movie.overview }}
+                            {% else %}
+                                概要:概要がありません。
+                            {% endif %}
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
+        
+              
     {% else %}
         <p>検索結果がありません。</p>
     {% endif %}
