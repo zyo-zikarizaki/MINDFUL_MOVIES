@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/locales/ja.js"></script>
+    <link rel="stylesheet" href="{% static 'carendar/style.css' %}">
     <script>
         const events = [
             {% for todo in todos %}
@@ -31,23 +32,25 @@
 <body>
     <header>
         <h1> MINDFUL_MOVIES </h1>
-        <a href="{% url 'search_movies' %}">公開日時を検索</a>
-        <a href="{% url 'now_playing_movies' %}">公開中の映画一覧を見る</a>
-        <a href="{% url 'upcoming_movies' %}">公開予定の映画一覧を見る</a>
+        <div class="button-container">
+            <a href="{% url 'search_movies' %}" class="btn btn-primary">公開日時を検索</a>
+            <a href="{% url 'now_playing_movies' %}" class="btn btn-primary">公開中の映画一覧</a>
+            <a href="{% url 'upcoming_movies' %}" class="btn btn-primary">公開予定の映画一覧</a>
+        </div>        
         <div class="registar">
             {% if user.is_authenticated %}
-                <div>
+                <div class="greeting">
                     <p>やあ！{{ user.username }}君</p>
                 </div>
-                <div>
+                <div class="logout-button">
                     <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %} 
-                        <button type="submit">ログアウト</button>
+                        <button type="submit" class="btn btn-primary">ログアウト</button>
                     </form>
                 </div>
             {% else %}
             {% endif %}
-        </div>
+        </div>        
         {% if upcoming_todos %}
                 <div class="alert alert-info mt-3">
                     <strong>明日の予定:</strong>
