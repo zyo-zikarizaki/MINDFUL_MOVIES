@@ -133,8 +133,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'carendar/static'),  # carendarの静的ファイル
-    os.path.join(BASE_DIR, 'movie/static'),      # movieの静的ファイル
+    os.path.join(BASE_DIR, 'todo_list/staticfiles'),
 ]
 
 
