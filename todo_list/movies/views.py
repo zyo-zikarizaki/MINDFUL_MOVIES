@@ -12,7 +12,7 @@ def search_movies(request):
             data = response.json()
             movies = data.get('results', [])
     
-    return render(request, 'movies/search.html', {'movies': movies})
+    return render(request, 'movies/search1.html', {'movies': movies})
 
 def now_playing_movies(request):
     # TMDBの「公開中の映画」エンドポイント
