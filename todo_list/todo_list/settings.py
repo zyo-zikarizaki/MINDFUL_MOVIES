@@ -29,7 +29,13 @@ SECRET_KEY = 'django-insecure-5ufj=xq)c%xkvko*d213w55(hu2%k+*vi5_!l8x^*vf7@2l361
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mindful-movies.onrender.com',
+    'localhost',  # ローカル開発用
+    '127.0.0.1',  # ローカル開発用
+    # 他のホスト名も必要に応じて追加
+]
+
 
 
 # Application definition
